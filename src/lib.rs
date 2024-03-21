@@ -31,7 +31,6 @@ fn adjust_mantissa(left: (u32, u32), right: (u32, u32)) -> (u32, u32, u32) {
     let e1 = if e1 == 0 { 0 } else { e1 };
     let e2 = if e2 == 0 { 0 } else { e2 };
 
-
     dbg!(e1);
     dbg!(e2);
 
@@ -47,7 +46,12 @@ fn adjust_mantissa(left: (u32, u32), right: (u32, u32)) -> (u32, u32, u32) {
             m2 <<= absolute_difference;
         }
     }
-    (m1, m2, e1.min(e2))
+
+    if e1 == 0 || e2 == 0 {
+        (m1, m2, if e1 == 0 { e2 } else { e1 })
+    } else {
+        (m1, m2, e1.min(e2))
+    }
 }
 
 fn normalize_sign(sign: u32) -> i32 {
@@ -98,15 +102,20 @@ impl Add for Float {
 
         let (m1, m2, common_exponent) = adjust_mantissa((m1, left.1), (m2, right.1));
 
+
+
         let new_mantissa = s1 * m1 as i32 + s2 * m2 as i32;
 
         let new_sign = (new_mantissa >> 31) as u32;
 
         let new_mantissa = new_mantissa.unsigned_abs();
 
-        println!("NEW MANTISSA: {:b}", new_mantissa);
 
-        let exponent = (common_exponent as i32 + required_bit_shifts(new_mantissa)) as u32;
+        let exponent = if common_exponent == 0 {
+            0
+        } else {
+            (common_exponent as i32 + required_bit_shifts(new_mantissa)) as u32
+        };
 
         dbg!(exponent);
 

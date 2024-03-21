@@ -124,11 +124,11 @@ mod tests {
         let non_zero_mantissa_1 =  5.90381056005e-41f32;
         let non_zero_mantissa_2 = 7.35996705665e-39f32;
 
-        // test_two_floats(zero, value);
+        test_two_floats(zero, value);
         test_two_floats(value, zero);
-        // test_two_floats(zero, zero);
-        //test_two_floats(non_zero_mantissa_1, non_zero_mantissa_2);
-        // test_two_floats(non_zero_mantissa_1, zero);
+        test_two_floats(zero, zero);
+        test_two_floats(non_zero_mantissa_1, non_zero_mantissa_2);
+        test_two_floats(non_zero_mantissa_1, zero);
     }
 
 
