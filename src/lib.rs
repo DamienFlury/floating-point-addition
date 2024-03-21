@@ -31,8 +31,6 @@ fn adjust_mantissa(left: (u32, u32), right: (u32, u32)) -> (u32, u32, u32) {
     let e1 = if e1 == 0 { 0 } else { e1 };
     let e2 = if e2 == 0 { 0 } else { e2 };
 
-    dbg!(e1);
-    dbg!(e2);
 
     if e1 != e2 {
         let difference = e1 as i32 - e2 as i32;
@@ -94,8 +92,6 @@ impl Add for Float {
         let s1 = normalize_sign(left.0);
         let s2 = normalize_sign(right.0);
 
-        println!("Exp a: {}", left.1);
-        println!("Exp b: {}", right.1);
 
         let m1 = prepend_leading_one(left.2, left.1);
         let m2 = prepend_leading_one(right.2, right.1);
@@ -117,7 +113,6 @@ impl Add for Float {
             (common_exponent as i32 + required_bit_shifts(new_mantissa)) as u32
         };
 
-        dbg!(exponent);
 
         let mantissa = if exponent == 0 {
             new_mantissa
@@ -142,15 +137,3 @@ impl From<Float> for f32 {
         f32::from_bits(value.0)
     }
 }
-
-// 10100001100100100101011
-// 10100001100100100101011
-
-// 10100001100100100101011
-// 10100001100100100101011
-
-// 10100001100100100101011
-// 101000011001001001010110
-
-// 110011001001101110100110
-// 110011001001101110100110
