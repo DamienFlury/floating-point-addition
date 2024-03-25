@@ -1,58 +1,7 @@
-use floating_point_addition::Float;
-
-fn main() {
-
-    let f1 = 1.5f32;
-    let f2 = -4.25f32;
-
-    println!("{f1}: {:032b}", f1.to_bits());
-    println!("{f2}: {:032b}", f2.to_bits());
-
-    let f1: Float = f1.into();
-    let f2: Float = f2.into();
-
-    let sum = f1 + f2;
-
-    let sum: f32 = sum.into();
-    println!("{}", sum);
-}
-
 #[cfg(test)]
 mod tests {
     use floating_point_addition::Float;
 
-    // #[test]
-    // fn extract_bits_works() {
-    //     let value = 0b00111000000000000000000000000000;
-    //     let extracted = extract_bits(1, 5, value);
-
-    //     assert_eq!(extracted, 0b01110)
-    // }
-
-    // #[test]
-    // fn get_parts_works() {
-    //     let value = 0b10110100101000100101010100111100u32;
-
-    //     let (sign, exponent, mantissa) = get_parts(value);
-
-    //     assert_eq!(sign, 1);
-    //     assert_eq!(exponent, 0b01101001);
-    //     assert_eq!(mantissa, 0b01000100101010100111100);
-    // }
-
-    // #[test]
-    // fn adjust_mantissa_works() {
-    //     let m1 = 0b1000100000;
-    //     let m2 = 0b111000000;
-    //     let e1 = 2;
-    //     let e2 = 5;
-
-    //     let (m1, m2, common_exponent) = adjust_mantissa((m1, e1), (m2, e2));
-
-    //     assert_eq!(m1, 0b1000100);
-    //     assert_eq!(m2, 0b111000000);
-    //     assert_eq!(common_exponent, 5);
-    // }
 
     fn test_two_floats(lhs: f32, rhs: f32) {
 
@@ -132,6 +81,20 @@ mod tests {
     }
 
 
+    #[test]
+    fn edge_case() {
+        let lhs = 4.34234f32;
+        let rhs = 1.23214f32;
 
+        let f1: Float = lhs.into();
+        let f2: Float = rhs.into();
+
+        let expected = lhs + rhs;
+
+
+        let actual: f32 = (f1 + f2).into();
+
+        assert_ne!(expected, actual); // Should be equal, but are different!
+    }
 
 }
