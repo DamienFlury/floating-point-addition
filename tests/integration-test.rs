@@ -35,7 +35,7 @@ mod tests {
 
     #[test]
     fn test_negative_1() {
-        let f1 = -1.2f32;
+        let f1 = -5.1f32;
         let f2 = 2.8f32;
 
         test_two_floats(f1, f2);
@@ -59,7 +59,7 @@ mod tests {
 
     #[test]
     fn test_negative_4() {
-        let f1 = 5.1f32;
+        let f1 = -5.1f32;
         let f2 = -2.8f32;
 
         test_two_floats(f1, f2);
@@ -77,9 +77,8 @@ mod tests {
         test_two_floats(value, zero);
         test_two_floats(zero, zero);
         test_two_floats(non_zero_mantissa_1, non_zero_mantissa_2);
-        test_two_floats(non_zero_mantissa_1, zero);
+        test_two_floats(non_zero_mantissa_2, zero);
     }
-
 
     #[test]
     fn edge_case() {
@@ -94,7 +93,7 @@ mod tests {
 
         let actual: f32 = (f1 + f2).into();
 
-        assert_ne!(expected, actual); // Should be equal, but are different!
+        test_two_floats(lhs, rhs)
     }
 
 }
